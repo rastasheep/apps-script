@@ -41,6 +41,7 @@ class GmailSearch {
           query.push(`${key}:${value.getUTCFullYear()}/${value.getUTCMonth() + 1}/${value.getUTCDate()}`);
           return query
         default:
+          query.push(`${key}:"${value}"`);
           return query;
       }
     }, []).join(' ');
@@ -54,6 +55,10 @@ class GmailSearch {
 }
 
 class Digest {
+  static get subjectBase () {
+    return 'Notes Digest';
+  };
+
   constructor({ recipient, threads, after }) {
     this.recipient = recipient;
     this.threads = threads;
@@ -77,7 +82,7 @@ class Digest {
   }
 
   _getSubject() {
-    return `Notes Digest - Week of ${this.after.toLocaleString('default', { month: 'short' })} ${this.after.getUTCDate()}`;
+    return `${Digest.subjectBase} - Week of ${this.after.toLocaleString('default', { month: 'short' })} ${this.after.getUTCDate()}`;
   }
 
   _getBody() {
@@ -114,7 +119,7 @@ class DigestScript {
 
   // Execute logic
   static execute({ label, recipient }) {
-    const search = new GmailSearch({ label });
+    const search = new GmailSearch({ label, '-subject': Digest.subjectBase });
 
     const messagesBefore = new Week().firstDayOfWeek();
     console.log(`[DigestScript] messages before: ${messagesBefore}`);
