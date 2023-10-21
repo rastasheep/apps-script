@@ -1,0 +1,25 @@
+{
+    "timeZone": "Europe/Belgrade",
+    "dependencies": {},
+    "exceptionLogging": "STACKDRIVER",
+    "runtimeVersion": "V8",
+    "addOns": {
+      "common": {
+        "layoutProperties": {
+          "primaryColor": "#fff"
+        },
+        "homepageTrigger": {
+          "runFunction": "homepage",
+          "enabled": true
+        },
+        "logoUrl": "https://ssl.gstatic.com/docs/script/images/logo/script-64.png",
+        "name": "Toolkit",
+        "useLocaleFromApp": true
+      },
+      "gmail": {
+        "homepageTrigger": {
+          "enabled": true
+        }
+      }
+    }
+  }
